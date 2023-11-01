@@ -69,6 +69,16 @@ router.put("/:id", validator.updateBook, async (req, res) => {
       return res.status(404).json({
         message: "Book does Not Exist",
       });
+
+    const isExist = await Book.findOne({
+      title: req.body.title,
+      author: req.body.author,
+      _id: { $ne: req.params.id },
+    });
+    if (isExist)
+      return res.status(404).json({
+        message: "Book already Exist",
+      });
     await book.set({ ...req.body }).save();
     res.status(200).json({
       message: "Book updated successfully.",
@@ -86,6 +96,9 @@ router.delete("/:id", async (req, res) => {
         message: "Book does Not Exist",
       });
     await book.delete();
+    res.status(200).json({
+      message: "Book deleted successfully.",
+    });
   } catch (error) {
     res.status(500).send("Error in deleting the book");
   }
