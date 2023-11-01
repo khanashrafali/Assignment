@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const book = require("./routes/book");
-const MongoServer = require("./config/db");
+const book = require("../routes/book");
+const MongoServer = require("../config/db");
 const serverless = require("serverless-http");
 
 MongoServer();
