@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const book = require("./routes/book");
 const MongoServer = require("./config/db");
+const serverless = require("serverless-http");
 
 MongoServer();
 
@@ -18,8 +19,10 @@ app.get("/", (req, res) => {
   res.send("API is working");
 });
 
-app.use("/api/books", book);
+app.use("/books", book);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);
 });
+app.use(`/.netlify/functions/api`, router);
+module.exports.handler = serverless(app);
