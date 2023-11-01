@@ -1,9 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const book = require("../routes/book");
-const MongoServer = require("../config/db");
-const serverless = require("serverless-http");
+const book = require("./routes/book");
+const MongoServer = require("./config/db");
 
 MongoServer();
 
@@ -19,10 +18,8 @@ app.get("/", (req, res) => {
   res.send("API is working");
 });
 
-app.use("/books", book);
+app.use("/api/books", book);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);
 });
-app.use(`/.netlify/functions/api`, app);
-module.exports.handler = serverless(app);
