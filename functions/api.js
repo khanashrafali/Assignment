@@ -24,5 +24,5 @@ app.use("/books", book);
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);
 });
-app.use(`/.netlify/functions/api`, router);
+app.use(`/.netlify/functions/api`, app);
 module.exports.handler = serverless(app);
